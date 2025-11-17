@@ -1,0 +1,99 @@
+<div class="bg-white relative p-5">
+  <!-- Κουμπί κλεισίματος -->
+  <button (click)="closeDialog()" class="absolute top-4 right-4 cursor-pointer">
+    <div class="flex items-center text-black-text rounded-xl px-3 py-1 bg-kanban-col-background">
+      <span class="text-gray-500 text-xl font-bold">X</span>
+    </div>
+  </button>
+  <div class="flex flex-col">
+    <form [formGroup]="taskForm">
+      <h2 class="font-medium text-lg pt-5 mb-5 pl-4 text-center">Επεξεργασία task</h2>
+      <!-- Τίτλος + Status -->
+      <div class="bg-kanban-col-background p-5 mb-2">
+        <div class="flex justify-between items-center mb-2">
+          <label for="title" class="text-sm font-medium text-black-text">Τίτλος</label>
+            <!-- Status (read-only) -->
+            <div class="flex items-center text-black-text rounded-lg pl-3 pr-6 py-1 bg-white-app">
+              <div class="w-1 h-4 rounded mr-2"
+                  [ngClass]="{
+                    'bg-todo': data.task.status === 'to_do',
+                    'bg-inprogress': data.task.status === 'in_progress',
+                    'bg-inreview': data.task.status === 'in_review'
+                  }">
+              </div>
+              <span class="font-medium">{{ statusDisplayName(data.task.status) }}</span>
+            </div>
+        </div>
+        <!-- Τίτλος-->
+        <input id="title" type="text" formControlName="title" class="w-full rounded-lg bg-white-app p-3 
+          focus:outline-none" placeholder="Πληκτρολογήστε τίτλο του task"
+        />
+      </div>
+      <div class="flex flex-col bg-kanban-col-background p-5">
+        <!-- Πεδίο Περιγραφής -->
+        <label for="description" class="text-sm font-medium text-black-text mb-2">
+          Περιγραφή Task
+        </label>
+        <textarea id="description" rows="3" formControlName="description"
+          class="resize-none rounded-lg bg-white-app p-3 focus:outline-none"
+          placeholder="Πληκτρολογήστε την περιγραφή εδώ..."></textarea>
+        <!-- Πεδίο Τag -->
+        <div class="flex space-x-10">
+          <div class="mt-5 flex flex-col mb-2 relative">
+            <label for="tags" class="text-sm font-medium text-black-text mb-2">Tag του task</label>
+            <select id="tags" formControlName="tag" class="w-40 px-3 py-2 rounded-xl bg-white-app focus:outline-none cursor-pointer appearance-none">
+              <option value="" selected>Επιλέξτε</option>
+              @for (tag of data.tags; track tag._id ) {
+                @if (tag.isEnabled === '1') {
+                  <option [value]="tag._id">{{ tag.name }}</option>
+                } @else {
+                  <option value="" disabled>{{ tag.name }}</option>
+                }
+              }
+            </select>
+            <img src="images/right-arrow.png"
+              class="absolute translate-x-32 top-1/2 translate-y-1.5 w-4 h-4 pointer-events-none rotate-90"
+              alt="arrow"
+            />
+          </div> 
+          <!-- Πεδίο Προτεραιότητα -->
+          <div class="mt-5 flex flex-col mb-2">
+            <label for="priority" class="text-sm font-medium text-black-text mb-2">Προτεραιότητα</label>
+            <div class="flex items-center bg-white-app rounded-xl">
+              <!-- Μείωση -->
+              <button type="button" (click)="decrease()" class="px-2 py-2 cursor-pointer">
+                <img src="images/minus.png" alt="minus" class="w-4 h-4">
+              </button>
+              <!-- Input αριθμού -->
+              <input id="priority" type="number" formControlName="priority" [value]="data.task.priority" readonly
+                class="w-10 text-center appearance-none focus:outline-none py-2"
+              />
+              <!-- Αύξηση -->
+              <button type="button" (click)="increase()" class="py-2 cursor-pointer">
+                <img src="images/plus.png" alt="plus" class="w-4 h-4">
+              </button>
+            </div>
+          </div> 
+        </div>  
+      </div>
+
+      <div class="flex justify-between mt-12">
+        <!-- Κουμπί Ακύρωσης -->
+        <button (click)="closeDialog()" class="rounded-xl bg-light-background px-8 py-2 text-lg cursor-pointer 
+        hover:bg-blue-100">
+          Ακύρωση
+        </button>
+        <!-- Κουμπί Αποθήκευσης -->
+        <button (click)="saveChanges()" class="rounded-xl bg-green-800 px-5 py-2 text-lg text-white-app  
+        cursor-pointer hover:bg-green-700 disabled:bg-gray-300 disabled:text-gray-500 
+        disabled:cursor-not-allowed" [disabled]="taskForm.invalid">
+          Αποθήκευση
+        </button>
+      </div>
+    </form>
+  </div>
+
+</div>
+
+
+
