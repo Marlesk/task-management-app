@@ -1,0 +1,27 @@
+<div class="bg-white relative p-5">
+   <!-- Κουμπί κλεισίματος -->
+  <button (click)="closeDialog()" class="absolute top-4 right-4 cursor-pointer">
+    <div class="flex items-center text-black-text rounded-xl px-3 py-1
+          bg-kanban-col-background">
+      <span class="text-gray-500 text-xl font-bold">X</span>
+    </div>
+  </button>
+  <div class="flex flex-col items-center text-center mb-16">
+    <img src="images/trash.png" class="w-20 mb-10"/>
+    <h1 class="text-xl font-medium mb-10">Διαγραφή;</h1>
+    <p class="text-[16px] hanging-indent"> {{ data.message }} </p>
+  </div>
+  
+  <div class="flex justify-between">
+     <!-- Κουμπί Ακύρωσης -->
+    <button (click)="closeDialog()" class="rounded-xl bg-light-background px-8 py-2 text-lg cursor-pointer 
+     hover:bg-blue-100">
+      Ακύρωση
+    </button>
+    <!-- Κουμπί Επιβεβαίωσης Διαγραφής -->
+    <button (click)="onConfirm()" class="rounded-xl bg-red-800 px-5 py-2 text-lg text-white-app cursor-pointer
+     hover:bg-red-700">
+      Επιβεβαίωση
+    </button>
+  </div>
+</div>
