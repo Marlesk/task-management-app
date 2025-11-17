@@ -1,0 +1,82 @@
+<div class="bg-white-app relative">
+  <!-- Κουμπί κλεισίματος -->
+  <button (click)="closeDialog()" class="absolute top-4 right-4 cursor-pointer">
+    <div class="flex items-center text-black-text rounded-xl px-3 py-1
+          bg-kanban-col-background">
+      <span class="text-gray-500 text-xl font-bold">X</span>
+    </div>
+  </button>
+  <form [formGroup]="taskForm" (ngSubmit)="onSubmit()">
+    <h2 class="font-medium text-lg pt-5 mb-5 pl-4">Δημιουργία task</h2>
+    <!-- Input τίτλου + status box -->
+    <div class="flex justify-between items-center mb-5 pl-2 pr-4">
+      <input type="text" formControlName="title" class="w-80 font-medium rounded-xl placeholder-gray-500 placeholder-bold p-2 focus:outline-kanban-col-background" placeholder="Πληκρολογήστε τίτλο του task"/>
+      <div class="flex items-center text-black-text rounded-xl pl-3 pr-6 py-2 
+      bg-kanban-col-background">
+        <div class="w-1 h-5 bg-todo rounded mr-2"></div>
+        <span class="font-medium">To Do</span>
+      </div>
+    </div>
+    <div class="flex flex-col bg-kanban-col-background p-5">
+      <!-- Πεδίο Περιγραφής -->
+      <label for="description" class="text-sm font-medium text-black-text mb-2">
+        Περιγραφή Task
+      </label>
+      <textarea id="description" rows="3" formControlName="description"
+        class="resize-none rounded-lg bg-white-app p-3 focus:outline-none"
+        placeholder="Πληκτρολογήστε την περιγραφή εδώ..."></textarea>
+      <!-- Πεδίο Τag -->
+      <div class="flex space-x-10">
+        <div class="mt-5 flex flex-col mb-2 relative">
+          <label for="tags" class="text-sm font-medium text-black-text mb-2">Tag του task</label>
+          <select id="tags" formControlName="tag" class="w-40 px-3 py-2 rounded-xl bg-white-app focus:outline-none cursor-pointer appearance-none">
+            <option value="" selected>Επιλέξτε</option>
+            @for (tag of tags; track tag._id ) {
+              @if (tag.isEnabled === '1') {
+                <option [value]="tag._id">{{ tag.name }}</option>
+              } @else {
+                <option value="" disabled>{{ tag.name }}</option>
+              }
+            }
+          </select>
+          <img src="images/right-arrow.png"
+            class="absolute translate-x-32 top-1/2 translate-y-1.5 w-4 h-4 pointer-events-none rotate-90"
+            alt="arrow"
+          />
+        </div>
+        <!-- Πεδίο Προτεραιότητα -->
+        <div class="mt-5 flex flex-col mb-2">
+          <label for="priority" class="text-sm font-medium text-black-text mb-2">Προτεραιότητα</label>
+          <div class="flex items-center bg-white-app rounded-xl">
+            <!-- Μείωση -->
+            <button type="button" (click)="decrease()" class="px-2 py-2 cursor-pointer">
+              <img src="images/minus.png" alt="minus" class="w-4 h-4">
+            </button>
+            <!-- Input αριθμού -->
+            <input id="priority" type="number" formControlName="priority" [value]="priority" readonly
+              class="w-10 text-center appearance-none focus:outline-none py-2"
+            />
+            <!-- Αύξηση -->
+            <button type="button" (click)="increase()" class="py-2 cursor-pointer">
+              <img src="images/plus.png" alt="plus" class="w-4 h-4">
+            </button>
+          </div>
+        </div> 
+      </div>
+    </div>
+    <!-- Κουμπί Δημιουργίας -->
+    <div class="flex justify-center mt-20">
+      <button type="submit" 
+        class="mb-5 px-20 py-3 rounded-xl bg-blue-basic text-white-app font-semibold 
+        cursor-pointer hover:bg-blue-400 disabled:bg-gray-300 disabled:text-gray-500 disabled:cursor-not-allowed" [disabled]="taskForm.invalid"
+       >
+        Δημιουργία
+      </button>
+    </div>
+
+  
+  </form>
+</div>
+
+
+
