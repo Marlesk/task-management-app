@@ -1,0 +1,24 @@
+ <div class="mx-12 mt-6 rounded-xl bg-white-app 
+  flex items-center shadow-[0_2px_8px_rgba(99,99,99,0.2)]">
+  <div class="w-full">
+    <!-- Έλεγχος αν δεν υπάρχουν tasks -->
+    @if (!tasks || tasks.length === 0) {
+      <!-- task-image για δημιουργία πρώτου task -->
+      <div class="bg-kanban-col-background rounded-lg w-80 h-72 flex flex-col mx-auto items-center 
+        m-28 cursor-pointer" (click)="openAddTaskModal()">
+          <img src="images/task-list.png" alt="No tasks" class="w-28 h-28 mb-4 mt-10"/>
+          <h2 class="font-semibold text-black-text mb-2">Δεν έχετε ακόμα task;</h2>
+          <p class="text-gray-500 text-sm text-center">
+            Κάντε κλικ εδώ ή στο κουμπί Νέο task για να εκκινήσετε με τη διαχείριση των task σας.
+          </p>
+      </div>
+      } @else {
+        <!-- Αν υπάρχουν tasks, εμφανίζουμε τον πίνακα -->
+        <app-task-board [tasks]="filteredTasks()" [tags]="tags"></app-task-board>
+      }
+      
+
+  </div>
+  
+</div>
+
