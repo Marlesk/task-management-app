@@ -17,12 +17,8 @@
       <!-- Ανάλογα με το task status μπαίνει στην σωστή στήλη -->
       @for (task of getTasksByStatus(col); track task._id) {
         <div class="bg-white rounded-lg shadow p-3 mb-3 flex flex-col space-y-2 mx-2">
-
           <!-- Τίτλος -->
           <div class="font-semibold text-black-text mb-3">{{ task.title }}</div>
-
-          <!-- Περιγραφή -->
-          <div class="text-black-text/70 mb-3 text-sm leading-snug line-clamp-5">{{ task.description }}</div>
 
           <!-- Tag -->
           <div class="max-w-max text-sm text-black-text rounded-xl px-2 py-1 mb-3 bg-light-background">
