@@ -65,8 +65,8 @@ export const environment = {
 Clone the repository:
 
 ```bash
-git clone https://github.com/Marlesk/Task-Management-App.git
-cd task-management
+git clone https://github.com/Marlesk/task-management-app.git
+cd task-management-app
 ```
 
 Install dependencies:
